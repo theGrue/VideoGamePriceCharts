@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Video Game Price Charts</string>
+    <string name="search_header">Search by Title or UPC</string>
+    <string name="search_label">Go</string>
+    <string name="nintendo_header">Browse by Console: Nintendo</string>
+    <string name="sega_header">Browse by Console: Sega</string>
+    <string name="playstation_header">Browse by Console: Sony</string>
+    <string name="atari_header">Browse by Console: Atari</string>
+    <string name="other_header">Browse by Console: Other</string>
+    <string name="used_price_header">Used Price:</string>
+    <string name="new_price_header">New Price:</string>
+    <string name="last_observation_header">Last Observation: </string>
+    <string name="volume_header">Volume: </string>
+    <string name="used_prices_header">Used Prices</string>
+    <string name="view_graph_label"><u>View Price History Chart</u></string>
+    <string-array name="sort_by">
+    	<item>Alphabetical</item>
+    	<item>Most Popular</item>
+    	<item>Price: Low to High</item>
+    	<item>Price: High to Low</item>
+    </string-array>
+    <string name="price_chart_activity_label">Video Game Price Charts : Price History Chart</string>
+    <string name="full_game_activity_label">Video Game Price Charts : New &amp; Used Price Comparison</string>
+    <string name="vgpc_activity_label">Compare Prices On 26,600 Video Games, See Historic Prices For Every Game, Find Stores With The Lowest Prices</string>
+    <string name="pending_label">Now Loading...</string>
+    
+</resources>

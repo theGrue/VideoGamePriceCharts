@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent" android:layout_width="fill_parent" android:fillViewport="true">
+	<LinearLayout
+	  android:orientation="vertical"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  android:background="@drawable/background">
+		<TextView android:layout_height="wrap_content" android:id="@+id/fullgame_name" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:textColor="@drawable/text" android:textStyle="bold" android:layout_marginLeft="5dip"></TextView>
+		<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/console_name" android:textColor="@drawable/text" android:layout_marginLeft="5dip"></TextView>
+			
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip">
+			
+				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10dip" android:layout_marginBottom="10dip">
+					<LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".5">
+						<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/used_price_header" android:textColor="@drawable/text" android:textStyle="bold" android:layout_gravity="center"></TextView>
+						<TextView android:layout_height="wrap_content" android:id="@+id/used_price_text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:textColor="@drawable/splash" android:textStyle="bold" android:layout_gravity="center"></TextView>
+					</LinearLayout>
+					<LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent" android:orientation="vertical" android:layout_weight=".5">
+						<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/new_price_header" android:textColor="@drawable/text" android:textStyle="bold" android:layout_gravity="center"></TextView>
+						<TextView android:layout_height="wrap_content" android:id="@+id/new_price_text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:textColor="@drawable/splash" android:textStyle="bold" android:layout_gravity="center"></TextView>
+					</LinearLayout>
+				</LinearLayout>
+				<TextView android:layout_gravity="center" android:layout_height="wrap_content" android:id="@+id/last_observation_text" android:layout_width="wrap_content" android:text="@string/last_observation_header" android:textColor="@drawable/text"></TextView>
+				<TextView android:layout_gravity="center" android:layout_height="wrap_content" android:id="@+id/volume_text" android:layout_width="wrap_content" android:text="@string/volume_header" android:textColor="@drawable/text" android:layout_marginBottom="10dip"></TextView>
+				<TextView android:textColor="@drawable/text" android:layout_height="wrap_content" android:id="@+id/view_graph_text" android:text="@string/view_graph_label" android:layout_width="wrap_content" android:layout_gravity="center" android:layout_marginBottom="10dip" android:textStyle="bold" android:textAppearance="?android:attr/textAppearanceMedium" android:visibility="gone"></TextView>
+			</LinearLayout>
+		</LinearLayout>
+		
+	   	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip">
+				<TextView android:layout_height="wrap_content" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:text="@string/used_prices_header" android:textStyle="bold" android:layout_marginLeft="3dip"></TextView>
+				<TableLayout android:id="@+id/used_prices_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border"></TableLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>

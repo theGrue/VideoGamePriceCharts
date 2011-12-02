@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="body">#ffffffff</drawable>
+    <drawable name="background">#ffdeeacd</drawable>
+    <drawable name="border">#ffb8cf9a</drawable>
+    <drawable name="splash">#ff0174d5</drawable>
+    <drawable name="tab">#ff75ae29</drawable>
+    <drawable name="text">#ff666666</drawable>
+</resources>
