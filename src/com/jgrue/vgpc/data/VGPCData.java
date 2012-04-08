@@ -8,7 +8,7 @@ import android.database.DatabaseUtils.InsertHelper;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -54,10 +54,10 @@ public class VGPCData extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Just drop all the tables.
 		db.execSQL("DROP TABLE IF EXISTS consoles");
-		db.execSQL("DROP TABLE IF EXISTS games");
-		db.execSQL("DROP TABLE IF EXISTS prices");
-		db.execSQL("DROP TABLE IF EXISTS stores");
-		db.execSQL("DROP TABLE IF EXISTS pages");
+		//db.execSQL("DROP TABLE IF EXISTS games");
+		//db.execSQL("DROP TABLE IF EXISTS prices");
+		//db.execSQL("DROP TABLE IF EXISTS stores");
+		//db.execSQL("DROP TABLE IF EXISTS pages");
 		
 		onCreate(db);
 	}
@@ -152,6 +152,9 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "PSP"); ih.bind(aliasColumn, "psp"); ih.bind(categoryColumn, 4);
+        
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "PlayStation Vita"); ih.bind(aliasColumn, "playstation-vita"); ih.bind(categoryColumn, 4);
         ih.execute();
 
         // Insert Other consoles.

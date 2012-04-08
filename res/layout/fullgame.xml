@@ -22,7 +22,7 @@
 						<TextView android:layout_height="wrap_content" android:id="@+id/new_price_text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:textColor="@drawable/splash" android:textStyle="bold" android:layout_gravity="center"></TextView>
 					</LinearLayout>
 				</LinearLayout>
-				<TextView android:layout_gravity="center" android:layout_height="wrap_content" android:id="@+id/last_observation_text" android:layout_width="wrap_content" android:text="@string/last_observation_header" android:textColor="@drawable/text"></TextView>
+				<TextView android:layout_gravity="center" android:layout_height="wrap_content" android:id="@+id/last_observation_text" android:layout_width="wrap_content" android:text="@string/last_observation_header" android:textColor="@drawable/text" android:visibility="gone"></TextView>
 				<TextView android:layout_gravity="center" android:layout_height="wrap_content" android:id="@+id/volume_text" android:layout_width="wrap_content" android:text="@string/volume_header" android:textColor="@drawable/text" android:layout_marginBottom="10dip"></TextView>
 				<TextView android:textColor="@drawable/text" android:layout_height="wrap_content" android:id="@+id/view_graph_text" android:text="@string/view_graph_label" android:layout_width="wrap_content" android:layout_gravity="center" android:layout_marginBottom="10dip" android:textStyle="bold" android:textAppearance="?android:attr/textAppearanceMedium" android:visibility="gone"></TextView>
 			</LinearLayout>
