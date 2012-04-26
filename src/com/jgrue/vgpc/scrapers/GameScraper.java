@@ -95,8 +95,8 @@ public class GameScraper {
 			Document document = Jsoup.parse(url, 30000);
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
 			
-			Elements tableRows = document.select("div#price_comparison table.used-prices tr");
-			for(int i = 1; i < tableRows.size(); i++) {
+			Elements tableRows = document.select("div#price_comparison > div.tab-frame > table.used-prices > tbody:eq(1) > tr");
+			for(int i = 0; i < tableRows.size(); i++) {
 				Elements tableData = tableRows.get(i).select("td");
 				 
 				Store newStore = new Store();

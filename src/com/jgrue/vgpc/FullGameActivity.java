@@ -1,6 +1,7 @@
 package com.jgrue.vgpc;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jgrue.vgpc.data.FullGame;
@@ -124,7 +125,11 @@ public class FullGameActivity extends Activity implements OnClickListener {
 	private class StoreListTask extends AsyncTask<String, Void, List<Store>> {
 		@Override
 		protected List<Store> doInBackground(String... arg0) {
-			return GameScraper.getStores(arg0[0], arg0[1]);
+			try {
+				return GameScraper.getStores(arg0[0], arg0[1]);
+			} catch (Exception ex) {
+				return new ArrayList<Store>();
+			}
 		}
 		
 		@Override
