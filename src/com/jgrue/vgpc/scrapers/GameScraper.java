@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -134,29 +137,19 @@ public class GameScraper {
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
 			
 			String javaScript = document.select("div.container div.content div.mid_col script").first().html();
-			Matcher matcher = Pattern.compile("\\[.*\\];").matcher(javaScript);
+			Matcher matcher = Pattern.compile("VGPC\\.chart_data = \\{.*\\}").matcher(javaScript);
 			
 			if(matcher.find()) {
-				String[] jsPriceArray = matcher.group().substring(1, matcher.group().length() - 2).split("\\],\\[");
-				for(int i = 0; i < jsPriceArray.length; i++) {
-					if(i == 0 && jsPriceArray[i].length() == 0)
-						break;
-					
-					if(i == 0)
-						jsPriceArray[i] = jsPriceArray[i].substring(1).trim();
-					else if(i == jsPriceArray.length - 1)
-						jsPriceArray[i] = jsPriceArray[i].substring(0, jsPriceArray[i].length() - 1).trim();
-					else
-						jsPriceArray[i] = jsPriceArray[i].trim();
-					
-					String[] priceDate = jsPriceArray[i].split(", ");
-					String[] dateParts = priceDate[0].substring(9, priceDate[0].length() - 1).split(",");
+				String jString = matcher.group().substring(matcher.group().indexOf("{"));
+				JSONObject chartData = new JSONObject(jString);
+				JSONArray jsPriceArray = chartData.getJSONArray("used");
+				
+				for(int i = 0; i < jsPriceArray.length(); i++) {
 					Calendar priceCal = Calendar.getInstance();
-					priceCal.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), 
-							Integer.parseInt(dateParts[2]), 0, 0, 0);
+					priceCal.setTimeInMillis(jsPriceArray.getJSONArray(i).getLong(0));
 					
 					Price newPrice = new Price();
-					newPrice.setPrice(Float.parseFloat(priceDate[1].replace(",", "")));
+					newPrice.setPrice((float)jsPriceArray.getJSONArray(i).getDouble(1));
 					newPrice.setPriceDate(priceCal.getTime());
 					priceList.add(newPrice);
 				}
@@ -169,6 +162,9 @@ public class GameScraper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

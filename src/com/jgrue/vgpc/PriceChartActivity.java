@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class PriceChartActivity extends Activity {
 	private static final String TAG = "PriceChartActivity";
@@ -83,6 +84,8 @@ public class PriceChartActivity extends Activity {
 			    
 			    startActivityForResult(intent, 0);
 			    finish();
+			} else {
+				((TextView)PriceChartActivity.this.findViewById(R.id.textView1)).setText("Error loading prices.");
 			}
 		}
 
