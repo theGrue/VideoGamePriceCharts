@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
+import com.androidquery.AQuery;
 import com.jgrue.vgpc.data.FullGame;
 import com.jgrue.vgpc.data.Store;
 import com.jgrue.vgpc.scrapers.GameScraper;
@@ -14,6 +15,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,6 +35,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 	private static final DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 	private FullGame fullGame;
 	private List<Store> listStore;
+	private AQuery aq;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -42,17 +46,21 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setSupportProgressBarIndeterminateVisibility(true);
 		
+		aq = new AQuery(this);
+		
 		String upc = getIntent().getStringExtra("GAME_UPC");
 		if(upc != null && !upc.equals("")) {
 			new FullGameTask().execute(upc);
 		} else {
-			((TextView)findViewById(R.id.fullgame_name)).setText(getIntent().getStringExtra("GAME_NAME"));
-			((TextView)findViewById(R.id.console_name)).setText(getIntent().getStringExtra("CONSOLE_NAME"));
+			getSupportActionBar().setTitle(getIntent().getStringExtra("GAME_NAME"));
+			getSupportActionBar().setSubtitle(getResources().getString(R.string.full_game_activity_label));
+			
+			aq.id(R.id.fullgame_name).text(getIntent().getStringExtra("GAME_NAME"));
+			aq.id(R.id.console_name).text(getIntent().getStringExtra("CONSOLE_NAME"));
 			if(getIntent().getFloatExtra("USED_PRICE", 0.0f) > 0.0f)
-				((TextView)findViewById(R.id.used_price_text)).setText(
-						moneyFormat.format(getIntent().getFloatExtra("USED_PRICE", 0.0f)));
+				aq.id(R.id.used_price_text).text(moneyFormat.format(getIntent().getFloatExtra("USED_PRICE", 0.0f)));
 			else
-				((TextView)findViewById(R.id.used_price_text)).setText("N/A");
+				aq.id(R.id.used_price_text).text("N/A");
 			
 			new FullGameTask().execute(getIntent().getStringExtra("GAME_ALIAS"), 
 					getIntent().getStringExtra("CONSOLE_ALIAS"));
@@ -96,31 +104,29 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			
 			fullGame = game;
 			
-			TextView gameName = (TextView)findViewById(R.id.fullgame_name);
-			gameName.setText(game.getGameName());
+			getSupportActionBar().setTitle(game.getGameName() + " (" + game.getConsoleName() + ")");
+			getSupportActionBar().setSubtitle(getResources().getString(R.string.full_game_activity_label));
+			aq.id(R.id.fullgame_name).text(game.getGameName());
+			aq.id(R.id.console_name).text(game.getConsoleName());
 			
-			TextView console = (TextView)findViewById(R.id.console_name);
-			console.setText(game.getConsoleName());
-			
-			TextView usedPrice = (TextView)findViewById(R.id.used_price_text);
 			if(game.getUsedPrice() > 0.0f) {
-				usedPrice.setText(moneyFormat.format(game.getUsedPrice()));
-				findViewById(R.id.view_graph_text).setVisibility(View.VISIBLE);
-				findViewById(R.id.view_graph_text).setOnClickListener(FullGameActivity.this);
+				aq.id(R.id.used_price_text).text(moneyFormat.format(game.getUsedPrice()));
+				aq.id(R.id.view_graph_text)
+					.visible()
+					.clicked(FullGameActivity.this);
 			} else
-				usedPrice.setText("N/A");
+				aq.id(R.id.used_price_text).text("N/A");
 			
-			TextView newPrice = (TextView)findViewById(R.id.new_price_text);
 			if(game.getNewPrice() > 0.0f)
-				newPrice.setText(moneyFormat.format(game.getNewPrice()));
+				aq.id(R.id.new_price_text).text(moneyFormat.format(game.getNewPrice()));
 			else
-				newPrice.setText("N/A");
+				aq.id(R.id.new_price_text).text("N/A");
 			
-			TextView lastObsv = (TextView)findViewById(R.id.last_observation_text);
-			lastObsv.setText(getString(R.string.last_observation_header) + " " + game.getLastObservation());
+			aq.id(R.id.last_observation_text).text(getString(R.string.last_observation_header) + " " + game.getLastObservation());
+			aq.id(R.id.volume_text).text(getString(R.string.volume_header) + " " + game.getVolume());
 			
-			TextView volume = (TextView)findViewById(R.id.volume_text);
-			volume.setText(getString(R.string.volume_header) + " " + game.getVolume());
+			Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+			aq.id(R.id.fullgame_image).image(game.getImageUrl(), true, true, 0, 0, noImage, AQuery.FADE_IN);
 			
 			// Once the key information is on screen, kick off everything else.
 			new StoreListTask().execute(game.getGameAlias(), game.getConsoleAlias());
@@ -140,7 +146,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		@Override
 		protected void onPostExecute(List<Store> storeList) {
 			listStore = storeList;
-			TableLayout table = (TableLayout)findViewById(R.id.used_prices_table);
+			TableLayout table = (TableLayout)aq.id(R.id.used_prices_table).getView();
 			
 			for(int i = 0; i < storeList.size(); i++) {
 				TableRow tableRow = new TableRow(FullGameActivity.this);

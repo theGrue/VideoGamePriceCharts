@@ -52,6 +52,7 @@ public class GameScraper {
 				game.setConsoleName(document.select("div#game-page h2.chart_title a").get(0).text());
 				game.setConsoleAlias(document.baseUri().split("/")[4]);
 				//game.setLastObservation(document.select("div#price_data div.prices_now p").get(0).html().substring(18).split("<")[0]);
+				game.setImageUrl(document.select("div#product_details div.cover img").get(0).attr("src"));
 				try {
 					game.setVolume(document.select("a#volume_link_used").get(0).text());
 				} catch (IndexOutOfBoundsException e) {

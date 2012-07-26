@@ -6,9 +6,30 @@
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
 	  android:background="@drawable/background">
-		<TextView android:layout_height="wrap_content" android:id="@+id/fullgame_name" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:textColor="@drawable/text" android:textStyle="bold" android:layout_marginLeft="5dip"></TextView>
-		<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/console_name" android:textColor="@drawable/text" android:layout_marginLeft="5dip"></TextView>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"  
+		    android:layout_margin="5dip">
+
+		    <ImageView
+		        android:id="@+id/fullgame_image"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/noimage" />
+		    			    
+			<LinearLayout
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:orientation="vertical" >
+			    <TextView android:layout_height="wrap_content" android:id="@+id/fullgame_name" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:textColor="@drawable/text" android:textStyle="bold" android:layout_marginLeft="5dip"></TextView>
+				<TextView android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/console_name" android:textColor="@drawable/text" android:layout_marginLeft="5dip"></TextView>
 			
+			</LinearLayout>
+
+		</LinearLayout>
+
+		
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
 			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip">
 			

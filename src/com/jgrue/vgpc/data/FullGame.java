@@ -4,6 +4,7 @@ public class FullGame extends Game {
 	private float newPrice;
 	private String volume;
 	private String lastObservation;
+	private String imageUrl;
 	
 	public void setNewPrice(float newPrice) {
 		this.newPrice = newPrice;
@@ -22,5 +23,11 @@ public class FullGame extends Game {
 	}
 	public String getLastObservation() {
 		return lastObservation;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }
