@@ -4,6 +4,9 @@ import static android.provider.BaseColumns._ID;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.jgrue.vgpc.R;
@@ -27,7 +30,7 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-public class VGPCActivity extends Activity implements OnClickListener, OnKeyListener {
+public class VGPCActivity extends SherlockActivity implements OnClickListener, OnKeyListener {
 	private static final String TAG = "VGPCActivity";
 	private VGPCData vgpcData;
 	
@@ -36,7 +39,8 @@ public class VGPCActivity extends Activity implements OnClickListener, OnKeyList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setTitle(getResources().getString(R.string.vgpc_activity_label));
+        
+        getSupportActionBar().setSubtitle(getResources().getString(R.string.vgpc_activity_label));
         
         vgpcData = new VGPCData(this);
         
@@ -183,6 +187,15 @@ public class VGPCActivity extends Activity implements OnClickListener, OnKeyList
 			myIntent.putExtra("GAME_UPC", scanResult.getContents());
 			startActivityForResult(myIntent, 0);
 		}
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Search")
+        	.setIcon(R.drawable.ic_search)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		return true;
 	}
 }
 

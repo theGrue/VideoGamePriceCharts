@@ -20,8 +20,8 @@
     	<item>Price: Low to High</item>
     	<item>Price: High to Low</item>
     </string-array>
-    <string name="price_chart_activity_label">Video Game Price Charts : Price History Chart</string>
-    <string name="full_game_activity_label">Video Game Price Charts : New &amp; Used Price Comparison</string>
+    <string name="price_chart_activity_label">Price History Chart</string>
+    <string name="full_game_activity_label">New &amp; Used Price Comparison</string>
     <string name="vgpc_activity_label">Compare Prices On 26,600 Video Games, See Historic Prices For Every Game, Find Stores With The Lowest Prices</string>
     <string name="pending_label">Now Loading...</string>
     

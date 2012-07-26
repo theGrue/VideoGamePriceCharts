@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
 import com.jgrue.vgpc.data.FullGame;
 import com.jgrue.vgpc.data.Store;
 import com.jgrue.vgpc.scrapers.GameScraper;
@@ -25,7 +27,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TableRow.LayoutParams;
 
-public class FullGameActivity extends Activity implements OnClickListener {
+public class FullGameActivity extends SherlockActivity implements OnClickListener {
 	private static final String TAG = "FullGameActivity";
 	private static final DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 	private FullGame fullGame;
@@ -35,7 +37,10 @@ public class FullGameActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.fullgame);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		setSupportProgressBarIndeterminateVisibility(true);
 		
 		String upc = getIntent().getStringExtra("GAME_UPC");
 		if(upc != null && !upc.equals("")) {
@@ -176,6 +181,8 @@ public class FullGameActivity extends Activity implements OnClickListener {
     			
     			table.addView(tableRow, rowParams);
 			}
+			
+			setSupportProgressBarIndeterminateVisibility(false);
 		}
 	}
 }

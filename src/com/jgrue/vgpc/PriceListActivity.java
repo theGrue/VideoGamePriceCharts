@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Window;
 import com.commonsware.cwac.endless.EndlessAdapter;
 
 import android.app.AlertDialog;
@@ -27,7 +30,7 @@ import com.jgrue.vgpc.data.Game;
 import com.jgrue.vgpc.scrapers.BrowseScraper;
 import com.jgrue.vgpc.scrapers.SearchScraper;
 
-public class PriceListActivity extends ListActivity {
+public class PriceListActivity extends SherlockListActivity implements ActionBar.OnNavigationListener {
 	private static final String TAG = "PriceListActivity";
 	private static final DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 	private List<Game> gameList;
@@ -44,14 +47,14 @@ public class PriceListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.pricelist);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		TextView priceListLabel = (TextView)findViewById(R.id.pricelist_label);
 		searchQuery = getIntent().getStringExtra("SEARCH_QUERY");
 		if(searchQuery != null && !searchQuery.equals("")) {
 			setSearchMode();
-			setTitle(getTitle() + " : Search");
-			priceListLabel.setText("Search results for \"" + searchQuery + "\"");
+			getSupportActionBar().setTitle("Search results for \"" + searchQuery + "\"");
 		} else {
 			setBrowseMode();
 			browseAlias = getIntent().getStringExtra("BROWSE_CONSOLE_ALIAS");
@@ -61,66 +64,30 @@ public class PriceListActivity extends ListActivity {
 				browseType = "name";
 			}
 			
-			priceListLabel.setVisibility(View.GONE);
-			Spinner priceListSpinner = (Spinner)findViewById(R.id.pricelist_spinner);
-			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-		            this, R.array.sort_by, android.R.layout.simple_spinner_item);
-		    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		    priceListSpinner.setAdapter(adapter);
-			priceListSpinner.setVisibility(View.VISIBLE);
+			getSupportActionBar().setTitle(browseName);
 			
-			if(browseType.equals("name"))
-				priceListSpinner.setSelection(0);
+			Context context = getSupportActionBar().getThemedContext();
+	        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.sort_by, R.layout.sherlock_spinner_item);
+	        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+	        
+	        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+	        getSupportActionBar().setListNavigationCallbacks(list, this);
+	        
+	        if(browseType.equals("name"))
+	        	getSupportActionBar().setSelectedNavigationItem(0);
 			else if(browseType.equals("popular"))
-				priceListSpinner.setSelection(1);
+				getSupportActionBar().setSelectedNavigationItem(1);
 			else if(browseType.equals("lowest-price"))
-				priceListSpinner.setSelection(2);
+				getSupportActionBar().setSelectedNavigationItem(2);
 			else if(browseType.equals("highest-price"))
-				priceListSpinner.setSelection(3);
-			
-			setTitle(getTitle() + " : " + browseName);
+				getSupportActionBar().setSelectedNavigationItem(3);
+	        
 		}
 		
 		gameList = new ArrayList<Game>();
 		setListAdapter(new PriceListAdapter(gameList));
 	}
 	
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		Spinner priceListSpinner = (Spinner)findViewById(R.id.pricelist_spinner);
-		priceListSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		    @Override
-		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-		        String newBrowseType = browseType;
-		        
-		    	switch (position) {
-			        case 0: newBrowseType = "name";
-			        	break;
-			        case 1: newBrowseType = "popular";
-			        	break;
-			        case 2: newBrowseType = "lowest-price";
-			        	break;
-			        case 3: newBrowseType = "highest-price";
-			        	break;
-		        }
-		        
-		    	if(!newBrowseType.equals(browseType)) {
-			        Intent myIntent = new Intent(PriceListActivity.this, PriceListActivity.class);
-					myIntent.putExtra("BROWSE_CONSOLE_NAME", browseName);
-					myIntent.putExtra("BROWSE_CONSOLE_ALIAS", browseAlias);
-					myIntent.putExtra("BROWSE_TYPE", newBrowseType);
-					startActivityForResult(myIntent, 0);
-					finish();
-		    	}
-		    }
-
-		    @Override
-		    public void onNothingSelected(AdapterView<?> parentView) { }
-		});
-	}
-
 	private class PriceListAdapter extends EndlessAdapter {
 		
 		private List<Game> gameListToLoad = new ArrayList<Game>();
@@ -209,12 +176,14 @@ public class PriceListActivity extends ListActivity {
 					public void onClick(DialogInterface dialog, int which) { finish(); return; } });
 	        	alertDialog.show();
 			}
+			
+			setSupportProgressBarIndeterminateVisibility(false);
 		}
 		
 		@Override
 		protected View getPendingView(ViewGroup parent) {
-			View row = getLayoutInflater().inflate(R.layout.pending, null);
-			return row;
+			setSupportProgressBarIndeterminateVisibility(true);
+			return getLayoutInflater().inflate(R.layout.pending, null);
 		}
 	}
 
@@ -239,5 +208,32 @@ public class PriceListActivity extends ListActivity {
 	private void setBrowseMode() {
 		searchMode = false;
 		browseMode = true;
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		String newBrowseType = browseType;
+        
+    	switch (itemPosition) {
+	        case 0: newBrowseType = "name";
+	        	break;
+	        case 1: newBrowseType = "popular";
+	        	break;
+	        case 2: newBrowseType = "lowest-price";
+	        	break;
+	        case 3: newBrowseType = "highest-price";
+	        	break;
+        }
+        
+    	if(!newBrowseType.equals(browseType)) {
+	        Intent myIntent = new Intent(PriceListActivity.this, PriceListActivity.class);
+			myIntent.putExtra("BROWSE_CONSOLE_NAME", browseName);
+			myIntent.putExtra("BROWSE_CONSOLE_ALIAS", browseAlias);
+			myIntent.putExtra("BROWSE_TYPE", newBrowseType);
+			startActivityForResult(myIntent, 0);
+			finish();
+    	}
+    	
+    	return true;
 	}
 }
