@@ -105,7 +105,7 @@ public class GameScraper {
 				 
 				Store newStore = new Store();
 				newStore.setStoreName(tableData.get(0).text());
-				newStore.setStoreLink(tableData.get(2).select("a").first().attr("href"));
+				newStore.setStoreLink(tableData.get(4).select("a").first().attr("href"));
 
 				if(tableData.get(1).text().startsWith("$"))
 					newStore.setStorePrice(Float.parseFloat(tableData.get(1).text().substring(1).replace(",", "")));

@@ -49,7 +49,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.pricelist);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		searchQuery = getIntent().getStringExtra("SEARCH_QUERY");
 		if(searchQuery != null && !searchQuery.equals("")) {

@@ -188,7 +188,7 @@ public class VGPCActivity extends SherlockActivity implements OnClickListener, O
 			startActivityForResult(myIntent, 0);
 		}
 	}
-	
+	/*
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Search")
@@ -197,5 +197,6 @@ public class VGPCActivity extends SherlockActivity implements OnClickListener, O
 		
 		return true;
 	}
+	*/
 }
 

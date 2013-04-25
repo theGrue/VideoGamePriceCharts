@@ -8,7 +8,7 @@ import android.database.DatabaseUtils.InsertHelper;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -88,6 +88,12 @@ public class VGPCData extends SQLiteOpenHelper {
         ih.bind(nameColumn, "Wii"); ih.bind(aliasColumn, "wii"); ih.bind(categoryColumn, 1);
         
         ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Wii U"); ih.bind(aliasColumn, "wii-u"); ih.bind(categoryColumn, 1);
+        
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Gameboy"); ih.bind(aliasColumn, "gameboy"); ih.bind(categoryColumn, 1);
+        
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Gameboy Color"); ih.bind(aliasColumn, "gameboy-color"); ih.bind(categoryColumn, 1);
         
         ih.execute(); ih.prepareForInsert();
@@ -134,6 +140,9 @@ public class VGPCData extends SQLiteOpenHelper {
         ih.bind(nameColumn, "Atari 7800"); ih.bind(aliasColumn, "atari-7800"); ih.bind(categoryColumn, 3);
         
         ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Atari 400/800"); ih.bind(aliasColumn, "atari-400"); ih.bind(categoryColumn, 3);
+        
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Atari Lynx"); ih.bind(aliasColumn, "atari-lynx"); ih.bind(categoryColumn, 3);
         
         ih.execute(); ih.prepareForInsert();
@@ -159,6 +168,9 @@ public class VGPCData extends SQLiteOpenHelper {
 
         // Insert Other consoles.
         ih.prepareForInsert();
+        ih.bind(nameColumn, "Skylanders Figures"); ih.bind(aliasColumn, "skylanders-figures"); ih.bind(categoryColumn, 5);
+        
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "3DO"); ih.bind(aliasColumn, "3do"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
@@ -196,6 +208,9 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Vectrex"); ih.bind(aliasColumn, "vectrex"); ih.bind(categoryColumn, 5);
+        
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "VIC-20"); ih.bind(aliasColumn, "vic-20"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Xbox"); ih.bind(aliasColumn, "xbox"); ih.bind(categoryColumn, 5);
