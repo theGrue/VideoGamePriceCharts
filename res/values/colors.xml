@@ -6,4 +6,5 @@
     <drawable name="splash">#ff0174d5</drawable>
     <drawable name="tab">#ff75ae29</drawable>
     <drawable name="text">#ff666666</drawable>
+    <drawable name="buttontext">#ff000000</drawable>
 </resources>
