@@ -129,15 +129,15 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			aq.id(R.id.fullgame_image).image(game.getImageUrl(), true, true, 0, 0, noImage, AQuery.FADE_IN);
 			
 			// Once the key information is on screen, kick off everything else.
-			new StoreListTask().execute(game.getGameAlias(), game.getConsoleAlias());
+			new StoreListTask().execute(game);
 	    }
 	}
 	
-	private class StoreListTask extends AsyncTask<String, Void, List<Store>> {
+	private class StoreListTask extends AsyncTask<FullGame, Void, List<Store>> {
 		@Override
-		protected List<Store> doInBackground(String... arg0) {
+		protected List<Store> doInBackground(FullGame... arg0) {
 			try {
-				return GameScraper.getStores(arg0[0], arg0[1]);
+				return GameScraper.getStores(arg0[0]);
 			} catch (Exception ex) {
 				return new ArrayList<Store>();
 			}

@@ -145,7 +145,7 @@ public class VGPCActivity extends SherlockActivity implements OnClickListener, O
 		if(v.getId() == R.id.search_button) {
 			String searchGame = ((EditText)findViewById(R.id.search_text)).getText().toString();
 			Intent myIntent = new Intent(v.getContext(), PriceListActivity.class);
-			myIntent.putExtra("SEARCH_QUERY", searchGame);
+			myIntent.putExtra("SEARCH_QUERY", searchGame.trim());
 			startActivityForResult(myIntent, 0);
 		} else if(v.getId() == R.id.barcode_button) {
 			IntentIntegrator integrator = new IntentIntegrator(VGPCActivity.this);

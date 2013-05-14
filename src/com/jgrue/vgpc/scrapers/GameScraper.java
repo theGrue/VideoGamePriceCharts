@@ -47,7 +47,8 @@ public class GameScraper {
 			String results[] = document.baseUri().substring(36).split("/");
 			
 			if(!results[1].startsWith("no_hits")) {
-				game.setGameName(document.select("h1#product_name").get(0).text());
+				game.setDocument(document);
+				game.setGameName(document.select("h1#product_name").get(0).text().replaceAll(" Prices$", ""));
 				game.setGameAlias(document.baseUri().split("/")[5]);
 				game.setConsoleName(document.select("div#game-page h2.chart_title a").get(0).text());
 				game.setConsoleAlias(document.baseUri().split("/")[4]);
@@ -90,22 +91,26 @@ public class GameScraper {
 		return game;
 	}
 	
-	public static List<Store> getStores(String gameAlias, String consoleAlias) {
+	public static List<Store> getStores(FullGame game) {
+		String gameAlias = game.getGameAlias(), consoleAlias = game.getConsoleAlias();
 		List<Store> storeList = new ArrayList<Store>();
 		
 		try {
-			URL url = new URL("http://videogames.pricecharting.com/game/" + consoleAlias + "/" + gameAlias);
-			Log.i(TAG, "Target URL: " + url.toString());
-			Document document = Jsoup.parse(url, 30000);
-			Log.i(TAG, "Retrieved URL: " + document.baseUri());
+			if (game.getDocument() == null) {
+				URL url = new URL("http://videogames.pricecharting.com/game/" + consoleAlias + "/" + gameAlias);
+				Log.i(TAG, "Target URL: " + url.toString());
+				Document document = Jsoup.parse(url, 30000);
+				Log.i(TAG, "Retrieved URL: " + document.baseUri());
+				game.setDocument(document);
+			}
 			
-			Elements tableRows = document.select("div#price_comparison > div.tab-frame > table.used-prices > tbody:eq(1) > tr");
+			Elements tableRows = game.getDocument().select("div#price_comparison > div.tab-frame > table.used-prices > tbody:eq(1) > tr");
 			for(int i = 0; i < tableRows.size(); i++) {
 				Elements tableData = tableRows.get(i).select("td");
 				 
 				Store newStore = new Store();
 				newStore.setStoreName(tableData.get(0).text());
-				newStore.setStoreLink(tableData.get(4).select("a").first().attr("href"));
+				newStore.setStoreLink(tableData.get(2).select("a").first().attr("href"));
 
 				if(tableData.get(1).text().startsWith("$"))
 					newStore.setStorePrice(Float.parseFloat(tableData.get(1).text().substring(1).replace(",", "")));

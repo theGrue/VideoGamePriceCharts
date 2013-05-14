@@ -1,10 +1,13 @@
 package com.jgrue.vgpc.data;
 
+import org.jsoup.nodes.Document;
+
 public class FullGame extends Game {
 	private float newPrice;
 	private String volume;
 	private String lastObservation;
 	private String imageUrl;
+	private Document document;
 	
 	public void setNewPrice(float newPrice) {
 		this.newPrice = newPrice;
@@ -29,5 +32,11 @@ public class FullGame extends Game {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public Document getDocument() {
+		return document;
+	}
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 }
