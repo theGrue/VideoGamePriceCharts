@@ -13,6 +13,6 @@
 	        <TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@drawable/text" android:id="@+id/game_name" android:textStyle="bold" android:ellipsize="marquee"></TextView>
 	        <TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@drawable/text" android:id="@+id/console_genre" android:ellipsize="marquee"></TextView>
 	    </LinearLayout>
-	    <TextView android:layout_height="wrap_content" android:text="TextView" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="fill_parent" android:layout_gravity="center_vertical|right" android:textColor="@drawable/tab" android:id="@+id/used_price" android:textStyle="bold" android:singleLine="true"></TextView>    
+	    <TextView android:layout_height="wrap_content" android:text="TextView" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="fill_parent" android:layout_gravity="center_vertical|right" android:textColor="@drawable/splash" android:id="@+id/used_price" android:textStyle="bold" android:singleLine="true"></TextView>    
 	</TableRow>
 </TableLayout>

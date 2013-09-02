@@ -187,6 +187,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		protected void onPostExecute(List<Store> storeList) {
 			listStore = storeList;
 			TableLayout table = (TableLayout)aq.id(R.id.used_prices_table).getView();
+			int paddingUnit = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
 			
 			for(int i = 0; i < storeList.size(); i++) {
 				TableRow tableRow = new TableRow(FullGameActivity.this);
@@ -198,16 +199,18 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
     			
     			TextView storeName = new TextView(FullGameActivity.this);
     			LayoutParams storeLayout = new LayoutParams(0, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 4);
-    			storeLayout.setMargins((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics()), 0, 0, 0);
+    			storeLayout.setMargins(paddingUnit, paddingUnit, 0, paddingUnit);
     			storeName.setLayoutParams(storeLayout);
-    			storeName.setTextColor(R.drawable.text);
+    			storeName.setTextColor(getResources().getColor(R.drawable.text));
     			storeName.setText(storeList.get(i).getStoreName());
     			storeName.setTypeface(null, Typeface.BOLD);
     			tableRow.addView(storeName);
     			
     			TextView storePrice = new TextView(FullGameActivity.this);
-    			storePrice.setLayoutParams(new LayoutParams(0, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 4));
-    			storePrice.setTextColor(R.drawable.text);
+    			LayoutParams priceLayout = new LayoutParams(0, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 4);
+    			priceLayout.setMargins(paddingUnit, paddingUnit, 0, paddingUnit);
+    			storePrice.setLayoutParams(priceLayout);
+    			storePrice.setTextColor(getResources().getColor(R.drawable.splash));
     			storePrice.setTypeface(null, Typeface.BOLD);
     			if(storeList.get(i).getStorePrice() > 0.0f)
     				storePrice.setText(moneyFormat.format(storeList.get(i).getStorePrice()));
@@ -217,7 +220,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
     			
     			ImageView storeLink = new ImageView(FullGameActivity.this);
     			LayoutParams linkLayout = new LayoutParams(0, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 2);
-    			linkLayout.setMargins(0, 0, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics()), 0);
+    			linkLayout.setMargins(0, paddingUnit, paddingUnit, paddingUnit);
     			storeLink.setLayoutParams(linkLayout);
     			storeLink.setImageResource(R.drawable.seeit);
     			storeLink.setClickable(true);
