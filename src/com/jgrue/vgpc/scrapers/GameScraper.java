@@ -55,10 +55,22 @@ public class GameScraper {
 				//game.setLastObservation(document.select("div#price_data div.prices_now p").get(0).html().substring(18).split("<")[0]);
 				game.setImageUrl(document.select("div#product_details div.cover img").get(0).attr("src"));
 				try {
-					game.setVolume(document.select("a#volume_link_used").get(0).text());
+					game.setUsedVolume(document.select("a#volume_link_used").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
-					Log.e(TAG, "Error parsing volume for " + game.getGameName() + ".");
-					game.setVolume("unknown");
+					Log.e(TAG, "Error parsing used volume for " + game.getGameName() + ".");
+					game.setUsedVolume("unknown");
+				}
+				try {
+					game.setCompleteVolume(document.select("a#volume_link_cib").get(0).text());
+				} catch (IndexOutOfBoundsException e) {
+					Log.e(TAG, "Error parsing complete volume for " + game.getGameName() + ".");
+					game.setCompleteVolume("unknown");
+				}
+				try {
+					game.setNewVolume(document.select("a#volume_link_new").get(0).text());
+				} catch (IndexOutOfBoundsException e) {
+					Log.e(TAG, "Error parsing new volume for " + game.getGameName() + ".");
+					game.setNewVolume("unknown");
 				}
 				try {
 					game.setUsedPrice(Float.parseFloat(document.select("td#used_price span.price").get(0).text().substring(1).replace(",", "")));
@@ -67,6 +79,14 @@ public class GameScraper {
 					game.setUsedPrice(0.0f);
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Used price was not found.");
+				}
+				try {
+					game.setCompletePrice(Float.parseFloat(document.select("td#complete_price span.price").get(0).text().substring(1).replace(",", "")));
+				} catch (NumberFormatException e) {
+					Log.e(TAG, "Error parsing complete price (" + document.select("td#complete_price span.price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
+					game.setCompletePrice(0.0f);
+				} catch (IndexOutOfBoundsException e) {
+					Log.e(TAG, "Complete price was not found.");
 				}
 				try {
 					game.setNewPrice(Float.parseFloat(document.select("td#new_price span.price").get(0).text().substring(1).replace(",", "")));
@@ -133,7 +153,7 @@ public class GameScraper {
 		return storeList;
 	}
 	
-	public static List<Price> getPriceHistory(String gameAlias, String consoleAlias) {
+	public static List<Price> getPriceHistory(String type, String gameAlias, String consoleAlias) {
 		List<Price> priceList = new ArrayList<Price>();
 		
 		try {
@@ -148,7 +168,7 @@ public class GameScraper {
 			if(matcher.find()) {
 				String jString = matcher.group().substring(matcher.group().indexOf("{"));
 				JSONObject chartData = new JSONObject(jString);
-				JSONArray jsPriceArray = chartData.getJSONArray("used");
+				JSONArray jsPriceArray = chartData.getJSONArray(type);
 				
 				for(int i = 0; i < jsPriceArray.length(); i++) {
 					Calendar priceCal = Calendar.getInstance();

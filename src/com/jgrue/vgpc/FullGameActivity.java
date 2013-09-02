@@ -72,6 +72,24 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		if(v.getId() == R.id.view_graph_text && fullGame != null) {
 			Intent myIntent = new Intent(v.getContext(), PriceChartActivity.class);
 			myIntent.putExtra("GAME_NAME", fullGame.getGameName());
+			myIntent.putExtra("CHART_TYPE", "used");
+			myIntent.putExtra("CHART_NAME", "Loose Price");
+			myIntent.putExtra("GAME_ALIAS", fullGame.getGameAlias());
+			myIntent.putExtra("CONSOLE_ALIAS", fullGame.getConsoleAlias());
+			startActivityForResult(myIntent, 0);
+		} else if(v.getId() == R.id.complete_view_graph_text && fullGame != null) {
+			Intent myIntent = new Intent(v.getContext(), PriceChartActivity.class);
+			myIntent.putExtra("GAME_NAME", fullGame.getGameName());
+			myIntent.putExtra("CHART_TYPE", "cib");
+			myIntent.putExtra("CHART_NAME", "Complete Price");
+			myIntent.putExtra("GAME_ALIAS", fullGame.getGameAlias());
+			myIntent.putExtra("CONSOLE_ALIAS", fullGame.getConsoleAlias());
+			startActivityForResult(myIntent, 0);
+		} else if(v.getId() == R.id.new_view_graph_text && fullGame != null) {
+			Intent myIntent = new Intent(v.getContext(), PriceChartActivity.class);
+			myIntent.putExtra("GAME_NAME", fullGame.getGameName());
+			myIntent.putExtra("CHART_TYPE", "new");
+			myIntent.putExtra("CHART_NAME", "New Price");
 			myIntent.putExtra("GAME_ALIAS", fullGame.getGameAlias());
 			myIntent.putExtra("CONSOLE_ALIAS", fullGame.getConsoleAlias());
 			startActivityForResult(myIntent, 0);
@@ -109,6 +127,8 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			aq.id(R.id.fullgame_name).text(game.getGameName());
 			aq.id(R.id.console_name).text(game.getConsoleName());
 			
+			// Used Price
+			
 			if(game.getUsedPrice() > 0.0f) {
 				aq.id(R.id.used_price_text).text(moneyFormat.format(game.getUsedPrice()));
 				aq.id(R.id.view_graph_text)
@@ -117,13 +137,33 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			} else
 				aq.id(R.id.used_price_text).text("N/A");
 			
-			if(game.getNewPrice() > 0.0f)
+			aq.id(R.id.volume_text).text(getString(R.string.volume_header) + " " + game.getUsedVolume());
+			
+			// Complete Price
+			
+			if(game.getCompletePrice() > 0.0f) {
+				aq.id(R.id.complete_price_text).text(moneyFormat.format(game.getCompletePrice()));
+				aq.id(R.id.complete_view_graph_text)
+					.visible()
+					.clicked(FullGameActivity.this);
+			} else
+				aq.id(R.id.complete_price_text).text("N/A");
+			
+			aq.id(R.id.complete_volume_text).text(getString(R.string.volume_header) + " " + game.getCompleteVolume());
+			
+			// New Price
+			
+			if(game.getNewPrice() > 0.0f) {
 				aq.id(R.id.new_price_text).text(moneyFormat.format(game.getNewPrice()));
-			else
+				aq.id(R.id.new_view_graph_text)
+					.visible()
+					.clicked(FullGameActivity.this);
+			} else
 				aq.id(R.id.new_price_text).text("N/A");
 			
-			aq.id(R.id.last_observation_text).text(getString(R.string.last_observation_header) + " " + game.getLastObservation());
-			aq.id(R.id.volume_text).text(getString(R.string.volume_header) + " " + game.getVolume());
+			aq.id(R.id.new_volume_text).text(getString(R.string.volume_header) + " " + game.getNewVolume());
+			
+			// Game Image
 			
 			Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
 			aq.id(R.id.fullgame_image).image(game.getImageUrl(), true, true, 0, 0, noImage, AQuery.FADE_IN);

@@ -34,14 +34,16 @@ public class PriceChartActivity extends Activity {
 		setContentView(R.layout.pricechart);
 		
 		gameName = getIntent().getStringExtra("GAME_NAME");
-		new PriceChartTask().execute(getIntent().getStringExtra("GAME_ALIAS"), 
+		new PriceChartTask().execute(
+				getIntent().getStringExtra("CHART_TYPE"),
+				getIntent().getStringExtra("GAME_ALIAS"), 
 				getIntent().getStringExtra("CONSOLE_ALIAS"));
 	}
 	
 	private class PriceChartTask extends AsyncTask<String, Void, List<Price>> {
 		@Override
 		protected List<Price> doInBackground(String... arg0) {
-			return GameScraper.getPriceHistory(arg0[0], arg0[1]);
+			return GameScraper.getPriceHistory(arg0[0], arg0[1], arg0[2]);
 		}
 	
 		@Override
@@ -79,7 +81,7 @@ public class PriceChartActivity extends Activity {
 				        dates.get(0)[dates.get(0).length - 1].getTime(), 0, 0 });  
 			    
 			    Intent intent = ChartFactory.getTimeChartIntent(PriceChartActivity.this, 
-			    		buildDateDataset(new String[] { "Used Price" }, dates, values),
+			    		buildDateDataset(new String[] { getIntent().getStringExtra("CHART_NAME") }, dates, values),
 			    		renderer, "MM/dd/yyyy");
 			    
 			    startActivityForResult(intent, 0);
