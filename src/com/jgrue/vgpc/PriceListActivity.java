@@ -2,6 +2,7 @@ package com.jgrue.vgpc;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.jgrue.vgpc.R;
 import com.jgrue.vgpc.data.Game;
+import com.jgrue.vgpc.scrapers.BrowseJsonScraper;
 import com.jgrue.vgpc.scrapers.BrowseScraper;
 import com.jgrue.vgpc.scrapers.SearchScraper;
 
@@ -61,7 +63,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 			browseName = getIntent().getStringExtra("BROWSE_CONSOLE_NAME");
 			browseType = getIntent().getStringExtra("BROWSE_TYPE");
 			if(browseType == null || browseType.equals("")) {
-				browseType = "name";
+				browseType = getResources().getStringArray(R.array.sort_by_type)[0];
 			}
 			
 			getSupportActionBar().setTitle(browseName);
@@ -72,16 +74,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 	        
 	        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	        getSupportActionBar().setListNavigationCallbacks(list, this);
-	        
-	        if(browseType.equals("name"))
-	        	getSupportActionBar().setSelectedNavigationItem(0);
-			else if(browseType.equals("popular"))
-				getSupportActionBar().setSelectedNavigationItem(1);
-			else if(browseType.equals("lowest-price"))
-				getSupportActionBar().setSelectedNavigationItem(2);
-			else if(browseType.equals("highest-price"))
-				getSupportActionBar().setSelectedNavigationItem(3);
-	        
+	        getSupportActionBar().setSelectedNavigationItem(Arrays.asList(getResources().getStringArray(R.array.sort_by_type)).indexOf(browseType));
 		}
 		
 		gameList = new ArrayList<Game>();
@@ -141,7 +134,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 			{
 				if(numPages == -1)
 					numPages = BrowseScraper.getNumPages(browseAlias);
-				gameListToLoad = BrowseScraper.getBrowseResults(browseAlias, browseType, nextPage);
+				gameListToLoad = BrowseJsonScraper.getBrowseResults(browseAlias, browseType, nextPage);
 				nextPage++;
 			}	
 			
@@ -212,18 +205,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		String newBrowseType = browseType;
-        
-    	switch (itemPosition) {
-	        case 0: newBrowseType = "name";
-	        	break;
-	        case 1: newBrowseType = "popular";
-	        	break;
-	        case 2: newBrowseType = "lowest-price";
-	        	break;
-	        case 3: newBrowseType = "highest-price";
-	        	break;
-        }
+		String newBrowseType = getResources().getStringArray(R.array.sort_by_type)[itemPosition];
         
     	if(!newBrowseType.equals(browseType)) {
 	        Intent myIntent = new Intent(PriceListActivity.this, PriceListActivity.class);

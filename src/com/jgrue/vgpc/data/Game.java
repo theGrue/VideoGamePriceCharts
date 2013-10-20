@@ -7,6 +7,7 @@ public class Game {
 	private String consoleAlias;
 	private String genre;
 	private float usedPrice;
+	private float newPrice;
 	
 	public void setGameName(String gameName) {
 		this.gameName = gameName;
@@ -43,5 +44,11 @@ public class Game {
 	}
 	public float getUsedPrice() {
 		return usedPrice;
+	}
+	public void setNewPrice(float newPrice) {
+		this.newPrice = newPrice;
+	}
+	public float getNewPrice() {
+		return newPrice;
 	}
 }

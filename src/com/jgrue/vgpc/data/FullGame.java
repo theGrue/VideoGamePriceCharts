@@ -4,7 +4,6 @@ import org.jsoup.nodes.Document;
 
 public class FullGame extends Game {
 	private float completePrice;
-	private float newPrice;
 	private String volume;
 	private String completeVolume;
 	private String newVolume;
@@ -17,12 +16,6 @@ public class FullGame extends Game {
 	}
 	public void setCompletePrice(float completePrice) {
 		this.completePrice = completePrice;
-	}
-	public void setNewPrice(float newPrice) {
-		this.newPrice = newPrice;
-	}
-	public float getNewPrice() {
-		return newPrice;
 	}
 	public void setUsedVolume(String volume) {
 		this.volume = volume;
