@@ -168,10 +168,10 @@ public class VGPCData extends SQLiteOpenHelper {
 
         // Insert Other consoles.
         ih.prepareForInsert();
-        ih.bind(nameColumn, "Skylanders Figures"); ih.bind(aliasColumn, "skylanders-figures"); ih.bind(categoryColumn, 5);
+        ih.bind(nameColumn, "Skylanders Figures"); ih.bind(aliasColumn, "skylanders"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Infinity Figures"); ih.bind(aliasColumn, "disney-infinity-figures"); ih.bind(categoryColumn, 5);
+        ih.bind(nameColumn, "Infinity Figures"); ih.bind(aliasColumn, "disney-infinity"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "3DO"); ih.bind(aliasColumn, "3do"); ih.bind(categoryColumn, 5);
