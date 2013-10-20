@@ -8,7 +8,7 @@ import android.database.DatabaseUtils.InsertHelper;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -169,6 +169,9 @@ public class VGPCData extends SQLiteOpenHelper {
         // Insert Other consoles.
         ih.prepareForInsert();
         ih.bind(nameColumn, "Skylanders Figures"); ih.bind(aliasColumn, "skylanders-figures"); ih.bind(categoryColumn, 5);
+        
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Infinity Figures"); ih.bind(aliasColumn, "disney-infinity-figures"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "3DO"); ih.bind(aliasColumn, "3do"); ih.bind(categoryColumn, 5);
