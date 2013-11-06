@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
-import com.androidquery.AQuery;
+import com.android.volley.toolbox.NetworkImageView;
 import com.jgrue.vgpc.data.FullGame;
 import com.jgrue.vgpc.data.Store;
 import com.jgrue.vgpc.scrapers.GameScraper;
@@ -35,7 +35,6 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 	private static final DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 	private FullGame fullGame;
 	private List<Store> listStore;
-	private AQuery aq;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -46,7 +45,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setSupportProgressBarIndeterminateVisibility(true);
 		
-		aq = new AQuery(this);
+		((NetworkImageView)findViewById(R.id.fullgame_image)).setDefaultImageResId(R.drawable.noimage);
 		
 		String upc = getIntent().getStringExtra("GAME_UPC");
 		if(upc != null && !upc.equals("")) {
@@ -55,12 +54,12 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			getSupportActionBar().setTitle(getIntent().getStringExtra("GAME_NAME"));
 			getSupportActionBar().setSubtitle(getResources().getString(R.string.full_game_activity_label));
 			
-			aq.id(R.id.fullgame_name).text(getIntent().getStringExtra("GAME_NAME"));
-			aq.id(R.id.console_name).text(getIntent().getStringExtra("CONSOLE_NAME"));
+			((TextView)findViewById(R.id.fullgame_name)).setText(getIntent().getStringExtra("GAME_NAME"));
+			((TextView)findViewById(R.id.console_name)).setText(getIntent().getStringExtra("CONSOLE_NAME"));
 			if(getIntent().getFloatExtra("USED_PRICE", 0.0f) > 0.0f)
-				aq.id(R.id.used_price_text).text(moneyFormat.format(getIntent().getFloatExtra("USED_PRICE", 0.0f)));
+				((TextView)findViewById(R.id.used_price_text)).setText(moneyFormat.format(getIntent().getFloatExtra("USED_PRICE", 0.0f)));
 			else
-				aq.id(R.id.used_price_text).text("N/A");
+				((TextView)findViewById(R.id.used_price_text)).setText(getIntent().getStringExtra("N/A"));
 			
 			new FullGameTask().execute(getIntent().getStringExtra("GAME_ALIAS"), 
 					getIntent().getStringExtra("CONSOLE_ALIAS"));
@@ -124,49 +123,46 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 			
 			getSupportActionBar().setTitle(game.getGameName() + " (" + game.getConsoleName() + ")");
 			getSupportActionBar().setSubtitle(getResources().getString(R.string.full_game_activity_label));
-			aq.id(R.id.fullgame_name).text(game.getGameName());
-			aq.id(R.id.console_name).text(game.getConsoleName());
+			((TextView)findViewById(R.id.fullgame_name)).setText(game.getGameName());
+			((TextView)findViewById(R.id.console_name)).setText(game.getConsoleName());
 			
 			// Used Price
 			
 			if(game.getUsedPrice() > 0.0f) {
-				aq.id(R.id.used_price_text).text(moneyFormat.format(game.getUsedPrice()));
-				aq.id(R.id.view_graph_text)
-					.visible()
-					.clicked(FullGameActivity.this);
+				((TextView)findViewById(R.id.used_price_text)).setText(moneyFormat.format(game.getUsedPrice()));
+				findViewById(R.id.view_graph_text).setVisibility(View.VISIBLE);
+				findViewById(R.id.view_graph_text).setOnClickListener(FullGameActivity.this);
 			} else
-				aq.id(R.id.used_price_text).text("N/A");
+				((TextView)findViewById(R.id.used_price_text)).setText("N/A");
 			
-			aq.id(R.id.volume_text).text(getString(R.string.volume_header) + " " + game.getUsedVolume());
+			((TextView)findViewById(R.id.volume_text)).setText(getString(R.string.volume_header) + " " + game.getUsedVolume());
 			
 			// Complete Price
 			
 			if(game.getCompletePrice() > 0.0f) {
-				aq.id(R.id.complete_price_text).text(moneyFormat.format(game.getCompletePrice()));
-				aq.id(R.id.complete_view_graph_text)
-					.visible()
-					.clicked(FullGameActivity.this);
+				((TextView)findViewById(R.id.complete_price_text)).setText(moneyFormat.format(game.getCompletePrice()));
+				findViewById(R.id.complete_view_graph_text).setVisibility(View.VISIBLE);
+				findViewById(R.id.complete_view_graph_text).setOnClickListener(FullGameActivity.this);
 			} else
-				aq.id(R.id.complete_price_text).text("N/A");
+				((TextView)findViewById(R.id.complete_price_text)).setText("N/A");
 			
-			aq.id(R.id.complete_volume_text).text(getString(R.string.volume_header) + " " + game.getCompleteVolume());
+			((TextView)findViewById(R.id.complete_volume_text)).setText(getString(R.string.volume_header) + " " + game.getCompleteVolume());
 			
 			// New Price
 			
 			if(game.getNewPrice() > 0.0f) {
-				aq.id(R.id.new_price_text).text(moneyFormat.format(game.getNewPrice()));
-				aq.id(R.id.new_view_graph_text)
-					.visible()
-					.clicked(FullGameActivity.this);
+				((TextView)findViewById(R.id.new_price_text)).setText(moneyFormat.format(game.getNewPrice()));
+				findViewById(R.id.new_view_graph_text).setVisibility(View.VISIBLE);
+				findViewById(R.id.new_view_graph_text).setOnClickListener(FullGameActivity.this);
 			} else
-				aq.id(R.id.new_price_text).text("N/A");
+				((TextView)findViewById(R.id.new_price_text)).setText("N/A");
 			
-			aq.id(R.id.new_volume_text).text(getString(R.string.volume_header) + " " + game.getNewVolume());
+			((TextView)findViewById(R.id.new_volume_text)).setText(getString(R.string.volume_header) + " " + game.getNewVolume());
 			
 			// Game Image
 			
-			Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
-			aq.id(R.id.fullgame_image).image(game.getImageUrl(), true, true, 0, 0, noImage, AQuery.FADE_IN);
+			NetworkImageView gameImage = (NetworkImageView)findViewById(R.id.fullgame_image);
+			gameImage.setImageUrl(game.getImageUrl(), VolleySingleton.getInstance(FullGameActivity.this).getImageLoader());
 			
 			// Once the key information is on screen, kick off everything else.
 			new StoreListTask().execute(game);
@@ -186,7 +182,7 @@ public class FullGameActivity extends SherlockActivity implements OnClickListene
 		@Override
 		protected void onPostExecute(List<Store> storeList) {
 			listStore = storeList;
-			TableLayout table = (TableLayout)aq.id(R.id.used_prices_table).getView();
+			TableLayout table = (TableLayout)findViewById(R.id.used_prices_table);
 			int paddingUnit = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
 			
 			for(int i = 0; i < storeList.size(); i++) {
