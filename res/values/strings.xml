@@ -31,5 +31,5 @@
     <string name="vgpc_activity_label">Compare Prices On 26,600 Video Games, See Historic Prices For Every Game, Find Stores With The Lowest Prices</string>
     <string name="pending_label">Now Loading...</string>
     <string name="complete_price_header">Complete Price:</string>
-    
+    <string name="xbox_header">Browse by Console: Xbox</string>
 </resources>

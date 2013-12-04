@@ -50,6 +50,7 @@ public class VGPCActivity extends SherlockActivity implements OnClickListener, O
     	fillTableFromCursor((TableLayout)findViewById(R.id.atari_table), getConsolesByCategory(3));
     	fillTableFromCursor((TableLayout)findViewById(R.id.playstation_table), getConsolesByCategory(4));
     	fillTableFromCursor((TableLayout)findViewById(R.id.other_table), getConsolesByCategory(5));
+    	fillTableFromCursor((TableLayout)findViewById(R.id.xbox_table), getConsolesByCategory(6));
         
     	findViewById(R.id.barcode_button).setOnClickListener(this);
         findViewById(R.id.search_button).setOnClickListener(this);

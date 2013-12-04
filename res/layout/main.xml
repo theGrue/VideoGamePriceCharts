@@ -18,6 +18,7 @@
 			
 		<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/border" /> -->
 			
+		<!-- Search -->
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
 			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip">
 				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
@@ -33,6 +34,7 @@
 			</LinearLayout>
 		</LinearLayout>
 		
+		<!-- Nintendo -->
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
 			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
 				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip">
@@ -44,28 +46,7 @@
 			</LinearLayout>
 		</LinearLayout>
 		
-		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
-			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
-				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
-					<ImageView android:src="@drawable/bullet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_marginRight="5dip"></ImageView>
-					<TextView android:layout_height="wrap_content" android:text="@string/sega_header" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
-				</LinearLayout>
-				<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/splash" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"/>
-				<TableLayout android:id="@+id/sega_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"></TableLayout>
-			</LinearLayout>
-		</LinearLayout>
-		
-		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
-			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
-				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
-					<ImageView android:src="@drawable/bullet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_marginRight="5dip"></ImageView>
-					<TextView android:layout_height="wrap_content" android:text="@string/atari_header" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
-				</LinearLayout>
-				<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/splash" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"/>
-				<TableLayout android:id="@+id/atari_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"></TableLayout>
-			</LinearLayout>
-		</LinearLayout>
-		
+		<!-- PlayStation -->
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
 			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
 				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
@@ -77,6 +58,43 @@
 			</LinearLayout>
 		</LinearLayout>
 		
+		<!-- Sega -->
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
+				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
+					<ImageView android:src="@drawable/bullet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_marginRight="5dip"></ImageView>
+					<TextView android:layout_height="wrap_content" android:text="@string/sega_header" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
+				</LinearLayout>
+				<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/splash" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"/>
+				<TableLayout android:id="@+id/sega_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"></TableLayout>
+			</LinearLayout>
+		</LinearLayout>
+		
+		<!-- Xbox -->
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
+				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
+					<ImageView android:src="@drawable/bullet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_marginRight="5dip"></ImageView>
+					<TextView android:layout_height="wrap_content" android:text="@string/xbox_header" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
+				</LinearLayout>
+				<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/splash" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"/>
+				<TableLayout android:id="@+id/xbox_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"></TableLayout>
+			</LinearLayout>
+		</LinearLayout>
+		
+		<!-- Atari -->
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
+				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">
+					<ImageView android:src="@drawable/bullet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:layout_marginRight="5dip"></ImageView>
+					<TextView android:layout_height="wrap_content" android:text="@string/atari_header" android:textColor="@drawable/text" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
+				</LinearLayout>
+				<View android:layout_width="fill_parent" android:layout_height="4dip" android:background="@drawable/splash" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"/>
+				<TableLayout android:id="@+id/atari_table" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip"></TableLayout>
+			</LinearLayout>
+		</LinearLayout>
+		
+		<!-- Other Systems -->
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/border" android:layout_margin="5dip">
 			<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/body" android:layout_margin="2dip" >
 				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="3dip" android:layout_marginRight="3dip">

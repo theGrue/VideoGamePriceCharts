@@ -8,7 +8,7 @@ import android.database.DatabaseUtils.InsertHelper;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -160,6 +160,9 @@ public class VGPCData extends SQLiteOpenHelper {
         ih.bind(nameColumn, "PlayStation 3"); ih.bind(aliasColumn, "playstation-3"); ih.bind(categoryColumn, 4);
         
         ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "PlayStation 4"); ih.bind(aliasColumn, "playstation-4"); ih.bind(categoryColumn, 4);
+        
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "PSP"); ih.bind(aliasColumn, "psp"); ih.bind(categoryColumn, 4);
         
         ih.execute(); ih.prepareForInsert();
@@ -214,12 +217,17 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "VIC-20"); ih.bind(aliasColumn, "vic-20"); ih.bind(categoryColumn, 5);
+        ih.execute();
+        
+        // Insert Xbox consoles.
+        ih.prepareForInsert();
+        ih.bind(nameColumn, "Xbox"); ih.bind(aliasColumn, "xbox"); ih.bind(categoryColumn, 6);
         
         ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Xbox"); ih.bind(aliasColumn, "xbox"); ih.bind(categoryColumn, 5);
+        ih.bind(nameColumn, "Xbox 360"); ih.bind(aliasColumn, "xbox-360"); ih.bind(categoryColumn, 6);
         
         ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Xbox 360"); ih.bind(aliasColumn, "xbox-360"); ih.bind(categoryColumn, 5);
+        ih.bind(nameColumn, "Xbox One"); ih.bind(aliasColumn, "xbox-one"); ih.bind(categoryColumn, 6);
         ih.execute();
 	}
 	
