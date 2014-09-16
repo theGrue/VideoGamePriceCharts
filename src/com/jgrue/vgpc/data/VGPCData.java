@@ -8,7 +8,7 @@ import android.database.DatabaseUtils.InsertHelper;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -111,19 +111,22 @@ public class VGPCData extends SQLiteOpenHelper {
         
         // Insert Sega consoles.
         ih.prepareForInsert();
+        ih.bind(nameColumn, "Sega Master System"); ih.bind(aliasColumn, "sega-master-system"); ih.bind(categoryColumn, 2);
+        
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Sega Genesis"); ih.bind(aliasColumn, "sega-genesis"); ih.bind(categoryColumn, 2);
         
         ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Sega Master System"); ih.bind(aliasColumn, "sega-master-system"); ih.bind(categoryColumn, 2);
+        ih.bind(nameColumn, "Sega CD"); ih.bind(aliasColumn, "sega-cd"); ih.bind(categoryColumn, 2);
+        
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Sega 32X"); ih.bind(aliasColumn, "sega-32x"); ih.bind(categoryColumn, 2);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Sega Saturn"); ih.bind(aliasColumn, "sega-saturn"); ih.bind(categoryColumn, 2);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Sega Dreamcast"); ih.bind(aliasColumn, "sega-dreamcast"); ih.bind(categoryColumn, 2);
-        
-        ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Sega CD"); ih.bind(aliasColumn, "sega-cd"); ih.bind(categoryColumn, 2);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Sega Game Gear"); ih.bind(aliasColumn, "sega-game-gear"); ih.bind(categoryColumn, 2);
