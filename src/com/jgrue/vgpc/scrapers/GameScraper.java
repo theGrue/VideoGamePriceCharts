@@ -48,50 +48,50 @@ public class GameScraper {
 			
 			if(!results[1].startsWith("no_hits")) {
 				game.setDocument(document);
-				game.setGameName(document.select("h1#product_name").get(0).text().replaceAll(" Prices$", ""));
-				game.setGameAlias(document.baseUri().split("/")[5]);
-				game.setConsoleName(document.select("div#game-page h2.chart_title a").get(0).text());
+				game.setConsoleName(document.select("#game-page .chart_title a").get(0).text());
 				game.setConsoleAlias(document.baseUri().split("/")[4]);
+				game.setGameName(document.select("#product_name").get(0).text().replaceAll(" Prices " + game.getConsoleName() + "$", "").replaceAll(" Prices$", ""));
+				game.setGameAlias(document.baseUri().split("/")[5]);
 				//game.setLastObservation(document.select("div#price_data div.prices_now p").get(0).html().substring(18).split("<")[0]);
-				game.setImageUrl(document.select("div#product_details div.cover img").get(0).attr("src"));
+				game.setImageUrl(document.select("#product_details .cover img").get(0).attr("src"));
 				try {
-					game.setUsedVolume(document.select("a#volume_link_used").get(0).text());
+					game.setUsedVolume(document.select("#volume_link_used").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing used volume for " + game.getGameName() + ".");
 					game.setUsedVolume("unknown");
 				}
 				try {
-					game.setCompleteVolume(document.select("a#volume_link_cib").get(0).text());
+					game.setCompleteVolume(document.select("#volume_link_cib").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing complete volume for " + game.getGameName() + ".");
 					game.setCompleteVolume("unknown");
 				}
 				try {
-					game.setNewVolume(document.select("a#volume_link_new").get(0).text());
+					game.setNewVolume(document.select("#volume_link_new").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing new volume for " + game.getGameName() + ".");
 					game.setNewVolume("unknown");
 				}
 				try {
-					game.setUsedPrice(Float.parseFloat(document.select("td#used_price span.price").get(0).text().substring(1).replace(",", "")));
+					game.setUsedPrice(Float.parseFloat(document.select("#used_price .price").get(0).text().substring(1).replace(",", "")));
 				} catch (NumberFormatException e) {
-					Log.e(TAG, "Error parsing used price (" + document.select("td#used_price span.price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
+					Log.e(TAG, "Error parsing used price (" + document.select("#used_price .price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
 					game.setUsedPrice(0.0f);
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Used price was not found.");
 				}
 				try {
-					game.setCompletePrice(Float.parseFloat(document.select("td#complete_price span.price").get(0).text().substring(1).replace(",", "")));
+					game.setCompletePrice(Float.parseFloat(document.select("#complete_price .price").get(0).text().substring(1).replace(",", "")));
 				} catch (NumberFormatException e) {
-					Log.e(TAG, "Error parsing complete price (" + document.select("td#complete_price span.price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
+					Log.e(TAG, "Error parsing complete price (" + document.select("#complete_price .price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
 					game.setCompletePrice(0.0f);
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Complete price was not found.");
 				}
 				try {
-					game.setNewPrice(Float.parseFloat(document.select("td#new_price span.price").get(0).text().substring(1).replace(",", "")));
+					game.setNewPrice(Float.parseFloat(document.select("#new_price .price").get(0).text().substring(1).replace(",", "")));
 				} catch (NumberFormatException e) {
-					Log.e(TAG, "Error parsing new price (" + document.select("td#new_price span.price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
+					Log.e(TAG, "Error parsing new price (" + document.select("#new_price .price").get(0).text().substring(1) + ") for " + game.getGameName() + ".");
 					game.setNewPrice(0.0f);
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "New price was not found.");
