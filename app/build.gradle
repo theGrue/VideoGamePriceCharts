@@ -23,6 +23,6 @@ dependencies {
     compile 'com.android.support:support-v4:18.0.0'
     compile files('libs/CWAC-AdapterWrapper.jar')
     compile files('libs/achartengine-1.0.0.jar')
-    compile files('libs/jsoup-1.6.1.jar')
+    compile 'org.jsoup:jsoup:1.6.1'
     compile files('libs/volley.jar')
 }
