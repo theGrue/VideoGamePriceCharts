@@ -1,38 +1,31 @@
 package com.jgrue.vgpc;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Window;
-import com.commonsware.cwac.endless.EndlessAdapter;
-
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jgrue.vgpc.R;
+import com.commonsware.cwac.endless.EndlessAdapter;
 import com.jgrue.vgpc.data.Game;
 import com.jgrue.vgpc.scrapers.BrowseJsonScraper;
 import com.jgrue.vgpc.scrapers.BrowseScraper;
 import com.jgrue.vgpc.scrapers.SearchScraper;
 
-public class PriceListActivity extends SherlockListActivity implements ActionBar.OnNavigationListener {
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PriceListActivity extends ActionBarListActivity implements ActionBar.OnNavigationListener {
 	private static final String TAG = "PriceListActivity";
 	private static final DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 	private List<Game> gameList;
@@ -49,7 +42,7 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.pricelist);
 		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -69,8 +62,8 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 			getSupportActionBar().setTitle(browseName);
 			
 			Context context = getSupportActionBar().getThemedContext();
-	        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.sort_by, R.layout.sherlock_spinner_item);
-	        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+	        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.sort_by, android.R.layout.simple_spinner_item);
+	        list.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 	        
 	        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	        getSupportActionBar().setListNavigationCallbacks(list, this);
@@ -79,6 +72,18 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 		
 		gameList = new ArrayList<Game>();
 		setListAdapter(new PriceListAdapter(gameList));
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent myIntent = new Intent(v.getContext(), FullGameActivity.class);
+                myIntent.putExtra("GAME_NAME", gameList.get(position).getGameName());
+                myIntent.putExtra("GAME_ALIAS", gameList.get(position).getGameAlias());
+                myIntent.putExtra("CONSOLE_NAME", gameList.get(position).getConsoleName());
+                myIntent.putExtra("CONSOLE_ALIAS", gameList.get(position).getConsoleAlias());
+                myIntent.putExtra("USED_PRICE", gameList.get(position).getUsedPrice());
+                startActivityForResult(myIntent, 0);
+            }
+        });
 	}
 	
 	private class PriceListAdapter extends EndlessAdapter {
@@ -178,19 +183,6 @@ public class PriceListActivity extends SherlockListActivity implements ActionBar
 			setSupportProgressBarIndeterminateVisibility(true);
 			return getLayoutInflater().inflate(R.layout.pending, null);
 		}
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-	  
-	  	Intent myIntent = new Intent(v.getContext(), FullGameActivity.class);
-		myIntent.putExtra("GAME_NAME", gameList.get(position).getGameName());
-		myIntent.putExtra("GAME_ALIAS", gameList.get(position).getGameAlias());
-		myIntent.putExtra("CONSOLE_NAME", gameList.get(position).getConsoleName());
-		myIntent.putExtra("CONSOLE_ALIAS", gameList.get(position).getConsoleAlias());
-		myIntent.putExtra("USED_PRICE", gameList.get(position).getUsedPrice());
-		startActivityForResult(myIntent, 0);
 	}
 	
 	private void setSearchMode() {

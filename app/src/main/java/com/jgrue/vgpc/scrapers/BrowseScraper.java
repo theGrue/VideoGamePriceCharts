@@ -1,20 +1,20 @@
 package com.jgrue.vgpc.scrapers;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
+
+import com.jgrue.vgpc.data.Game;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.util.Log;
-
-import com.jgrue.vgpc.data.Game;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BrowseScraper {
 	private static final String TAG = "BrowseScraper";

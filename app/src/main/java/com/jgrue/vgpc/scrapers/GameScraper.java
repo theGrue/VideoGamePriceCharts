@@ -1,5 +1,18 @@
 package com.jgrue.vgpc.scrapers;
 
+import android.util.Log;
+
+import com.jgrue.vgpc.data.FullGame;
+import com.jgrue.vgpc.data.Price;
+import com.jgrue.vgpc.data.Store;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -9,19 +22,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import android.util.Log;
-
-import com.jgrue.vgpc.data.FullGame;
-import com.jgrue.vgpc.data.Price;
-import com.jgrue.vgpc.data.Store;
 
 public class GameScraper {
 	private static final String TAG = "GameScraper";

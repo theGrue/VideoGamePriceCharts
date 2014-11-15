@@ -1,8 +1,14 @@
 package com.jgrue.vgpc;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.jgrue.vgpc.data.Price;
+import com.jgrue.vgpc.scrapers.GameScraper;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
@@ -13,15 +19,9 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import com.jgrue.vgpc.data.Price;
-import com.jgrue.vgpc.scrapers.GameScraper;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class PriceChartActivity extends Activity {
 	private static final String TAG = "PriceChartActivity";

@@ -1,32 +1,23 @@
 package com.jgrue.vgpc.scrapers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import android.util.Log;
 
-import org.apache.http.HttpEntity;
+import com.jgrue.vgpc.data.Game;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
-import android.util.Log;
-
-import com.jgrue.vgpc.data.Game;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BrowseJsonScraper {
 	private static final String TAG = "BrowseJsonScraper";

@@ -1,5 +1,14 @@
 package com.jgrue.vgpc.scrapers;
 
+import android.util.Log;
+
+import com.jgrue.vgpc.data.FullGame;
+import com.jgrue.vgpc.data.Game;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -7,15 +16,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import android.util.Log;
-
-import com.jgrue.vgpc.data.FullGame;
-import com.jgrue.vgpc.data.Game;
 
 public class SearchScraper {
 	private static final String TAG = "SearchScraper";

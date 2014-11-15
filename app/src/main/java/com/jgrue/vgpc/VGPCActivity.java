@@ -1,23 +1,11 @@
 package com.jgrue.vgpc;
 
-import static android.provider.BaseColumns._ID;
-
-import java.util.ArrayList;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.jgrue.vgpc.R;
-import com.jgrue.vgpc.data.VGPCData;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,7 +18,15 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-public class VGPCActivity extends SherlockActivity implements OnClickListener, OnKeyListener {
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.jgrue.vgpc.data.VGPCData;
+
+import java.util.ArrayList;
+
+import static android.provider.BaseColumns._ID;
+
+public class VGPCActivity extends ActionBarActivity implements OnClickListener, OnKeyListener {
 	private static final String TAG = "VGPCActivity";
 	private VGPCData vgpcData;
 	

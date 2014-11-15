@@ -1,10 +1,11 @@
 package com.jgrue.vgpc.data;
 
-import static android.provider.BaseColumns._ID;
 import android.content.Context;
+import android.database.DatabaseUtils.InsertHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.DatabaseUtils.InsertHelper;
+
+import static android.provider.BaseColumns._ID;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
