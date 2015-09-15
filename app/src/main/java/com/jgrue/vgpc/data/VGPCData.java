@@ -9,7 +9,7 @@ import static android.provider.BaseColumns._ID;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -179,6 +179,9 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Infinity Figures"); ih.bind(aliasColumn, "disney-infinity"); ih.bind(categoryColumn, 5);
+
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "amiibo Figures"); ih.bind(aliasColumn, "amiibo"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "3DO"); ih.bind(aliasColumn, "3do"); ih.bind(categoryColumn, 5);

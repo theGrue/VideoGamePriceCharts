@@ -46,6 +46,9 @@ public class FullGame extends Game {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+		if (this.imageUrl.startsWith("/")) {
+			this.imageUrl = "http://videogames.pricecharting.com" + this.imageUrl;
+		}
 	}
 	public Document getDocument() {
 		return document;
