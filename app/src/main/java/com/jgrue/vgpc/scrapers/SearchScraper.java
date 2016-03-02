@@ -40,13 +40,13 @@ public class SearchScraper {
 				 
 				for(int i = 1; i < tableRows.size(); i++) {
 					Elements tableData = tableRows.get(i).select("td");
-					String consoleGameAlias = tableData.get(0).select("a").first().attr("href").substring(6);
+					String[] consoleGameAlias = tableData.get(0).select("a").first().attr("href").split("/");
 					
 					Game newGame = new Game();
 					newGame.setGameName(tableData.get(0).text());
-					newGame.setGameAlias(consoleGameAlias.split("/")[1]);
+					newGame.setGameAlias(consoleGameAlias[consoleGameAlias.length - 1]);
 					newGame.setConsoleName(tableData.get(1).text());
-					newGame.setConsoleAlias(consoleGameAlias.split("/")[0]);
+					newGame.setConsoleAlias(consoleGameAlias[consoleGameAlias.length - 2]);
 					newGame.setGenre(tableData.get(2).text());
 					try {
 						newGame.setUsedPrice(Float.parseFloat(tableData.get(3).text().substring(1).replace(",", "")));
