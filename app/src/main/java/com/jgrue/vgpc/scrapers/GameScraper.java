@@ -1,5 +1,6 @@
 package com.jgrue.vgpc.scrapers;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.jgrue.vgpc.data.FullGame;
@@ -44,14 +45,14 @@ public class GameScraper {
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
 			
 			// Check to see whether we found anything.
-			String results[] = document.baseUri().substring(36).split("/");
+			String results[] = Uri.parse(document.baseUri()).getPath().split("/");
 			
-			if(!results[1].startsWith("no_hits")) {
+			if(!results[2].startsWith("no_hits")) {
 				game.setDocument(document);
 				game.setConsoleName(document.select("#game-page .chart_title a").get(0).text());
-				game.setConsoleAlias(document.baseUri().split("/")[4]);
+				game.setConsoleAlias(results[results.length - 2]);
 				game.setGameName(document.select("#product_name").get(0).text().replaceAll(" Prices " + game.getConsoleName() + "$", "").replaceAll(" Prices$", ""));
-				game.setGameAlias(document.baseUri().split("/")[5]);
+				game.setGameAlias(results[results.length - 1]);
 				//game.setLastObservation(document.select("div#price_data div.prices_now p").get(0).html().substring(18).split("<")[0]);
 				game.setImageUrl(document.select("#product_details .cover img").get(0).attr("src"));
 				try {

@@ -1,5 +1,6 @@
 package com.jgrue.vgpc.scrapers;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.jgrue.vgpc.data.FullGame;
@@ -31,16 +32,16 @@ public class SearchScraper {
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
 			
 			// Check to see whether we got redirected straight to a game.
-			String results[] = document.baseUri().substring(36).split("/");
-			if(results.length == 3 && results[0].equals("game")) {
-				FullGame newGame = GameScraper.getFullGame(results[2], results[1]);
+			String results[] = Uri.parse(document.baseUri()).getPath().split("/");
+			if(results.length == 4 && results[1].equals("game")) {
+				FullGame newGame = GameScraper.getFullGame(results[3], results[2]);
 				gameList.add(newGame);
-			} else if(!(results.length == 2 && results[0].equals("search") && results[1].startsWith("no_hits"))) {
+			} else if(!(results.length == 3 && results[1].equals("search") && results[2].equals("no_hits"))) {
 				Elements tableRows = document.select("table#games_table tr");
 				 
 				for(int i = 1; i < tableRows.size(); i++) {
 					Elements tableData = tableRows.get(i).select("td");
-					String[] consoleGameAlias = tableData.get(0).select("a").first().attr("href").split("/");
+					String[] consoleGameAlias = Uri.parse(tableData.get(0).select("a").first().attr("href")).getPath().split("/");
 					
 					Game newGame = new Game();
 					newGame.setGameName(tableData.get(0).text());
