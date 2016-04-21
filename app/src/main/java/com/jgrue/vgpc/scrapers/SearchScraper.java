@@ -26,7 +26,7 @@ public class SearchScraper {
 		
 		// Get the HTML page and parse it with jsoup. 
 		try {
-			URL url = new URL("http://videogames.pricecharting.com/search?type=videogames&submit=Go&q=" + URLEncoder.encode(query, "ISO-8859-1"));
+			URL url = new URL("https://www.pricecharting.com/search-products?type=videogames&submit=Go&q=" + URLEncoder.encode(query, "ISO-8859-1"));
 			Log.i(TAG, "Target URL: " + url.toString());
 			Document document = Jsoup.parse(url, 30000);
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
@@ -48,11 +48,10 @@ public class SearchScraper {
 					newGame.setGameAlias(consoleGameAlias[consoleGameAlias.length - 1]);
 					newGame.setConsoleName(tableData.get(1).text());
 					newGame.setConsoleAlias(consoleGameAlias[consoleGameAlias.length - 2]);
-					newGame.setGenre(tableData.get(2).text());
 					try {
-						newGame.setUsedPrice(Float.parseFloat(tableData.get(3).text().substring(1).replace(",", "")));
+						newGame.setUsedPrice(Float.parseFloat(tableData.get(2).text().substring(1).replace(",", "")));
 					} catch (NumberFormatException e) {
-						Log.e(TAG, "Error parsing price (" + tableData.get(3).text() + ") for " + newGame.getGameName() + ".");
+						Log.e(TAG, "Error parsing price (" + tableData.get(2).text() + ") for " + newGame.getGameName() + ".");
 						newGame.setUsedPrice(0.0f);
 					}
 					

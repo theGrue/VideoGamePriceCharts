@@ -28,11 +28,16 @@ public class GameScraper {
 	private static final String TAG = "GameScraper";
 	
 	public static FullGame getFullGame(String upc) {
-		return getFullGameInternal("http://videogames.pricecharting.com/search/?q=" + upc);
+		return getFullGameInternal("https://www.pricecharting.com/search/?q=" + upc);
 	}
 	
 	public static FullGame getFullGame(String gameAlias, String consoleAlias) {
-		return getFullGameInternal("http://videogames.pricecharting.com/game/" + consoleAlias + "/" + gameAlias);
+		if (consoleAlias.equals("game")) {
+			return getFullGameInternal("https://www.pricecharting.com/game/" + gameAlias);
+		}
+		else {
+			return getFullGameInternal("https://www.pricecharting.com/game/" + consoleAlias + "/" + gameAlias);
+		}
 	}
 	
 	private static FullGame getFullGameInternal(String urlString) {

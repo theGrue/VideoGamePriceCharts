@@ -180,8 +180,8 @@ public class VGPCActivity extends ActionBarActivity implements OnClickListener, 
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		if (scanResult != null && resultCode != RESULT_CANCELED) {
 			// handle scan result
-			Intent myIntent = new Intent(VGPCActivity.this, FullGameActivity.class);
-			myIntent.putExtra("GAME_UPC", scanResult.getContents());
+			Intent myIntent = new Intent(VGPCActivity.this, PriceListActivity.class);
+			myIntent.putExtra("SEARCH_QUERY", scanResult.getContents());
 			startActivityForResult(myIntent, 0);
 		}
 	}

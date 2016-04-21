@@ -112,7 +112,7 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 				
 				TextView consoleGenre = (TextView)convertView.findViewById(R.id.console_genre);
 				if(consoleGenre != null && searchMode)
-					consoleGenre.setText(game.getConsoleName() + ", " + game.getGenre());
+					consoleGenre.setText(game.getConsoleName());
 				else if(consoleGenre != null && browseMode)
 					consoleGenre.setText(game.getGenre());
 				
