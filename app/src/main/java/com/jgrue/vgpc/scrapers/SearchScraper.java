@@ -53,6 +53,9 @@ public class SearchScraper {
 					} catch (NumberFormatException e) {
 						Log.e(TAG, "Error parsing price (" + tableData.get(2).text() + ") for " + newGame.getGameName() + ".");
 						newGame.setUsedPrice(0.0f);
+					} catch (StringIndexOutOfBoundsException e) {
+						Log.e(TAG, "Error parsing price (" + tableData.get(2).text() + ") for " + newGame.getGameName() + ".");
+						newGame.setUsedPrice(0.0f);
 					}
 					
 					gameList.add(newGame);
