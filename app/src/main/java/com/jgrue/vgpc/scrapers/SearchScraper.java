@@ -6,6 +6,7 @@ import android.util.Log;
 import com.jgrue.vgpc.data.FullGame;
 import com.jgrue.vgpc.data.Game;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -28,7 +29,20 @@ public class SearchScraper {
 		try {
 			URL url = new URL("https://www.pricecharting.com/search-products?type=videogames&submit=Go&q=" + URLEncoder.encode(query, "ISO-8859-1"));
 			Log.i(TAG, "Target URL: " + url.toString());
-			Document document = Jsoup.parse(url, 30000);
+			Connection.Response res = Jsoup.connect(url.toString())
+					.timeout(30000)
+					.ignoreHttpErrors(true)
+					.followRedirects(true)
+					.execute();
+
+			if (res.statusCode() == 307) {
+				String sNewUrl = res.header("Location");
+				if (sNewUrl != null && sNewUrl.length() > 7)
+					url = new URL(sNewUrl);
+				res = Jsoup.connect(url.toString()).timeout(30000).execute();
+			}
+
+			Document document = res.parse();
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
 			
 			// Check to see whether we got redirected straight to a game.

@@ -3,48 +3,40 @@ package com.jgrue.vgpc.scrapers;
 import android.util.Log;
 
 import com.jgrue.vgpc.data.Game;
+import com.jgrue.vgpc.data.GameList;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BrowseJsonScraper {
 	private static final String TAG = "BrowseJsonScraper";
 	
-	public static List<Game> getBrowseResults(String consoleAlias, String sortBy, int page) {
+	public static GameList getBrowseResults(String consoleAlias, String sortBy, String cursor) {
 		ArrayList<Game> gameList = new ArrayList<Game>();
+		String nextCursor = null;
 		
 		// Get the HTML page and parse it with jsoup. 
 		try {
-			URL url = new URL("http://videogames.pricecharting.com/console/" + consoleAlias + 
-					"?sort-by=" + sortBy + "&page=" + page + "&per-page=30&format=json");
+			URL url = new URL("https://www.pricecharting.com/console/" + consoleAlias +
+					"?sort=" + sortBy + "&cursor=" + (cursor == null ? "" : cursor) + "&format=json");
 			Log.i(TAG, "Target URL: " + url.toString());
-			
-            HttpResponse response = new DefaultHttpClient().execute(new HttpGet(url.toString()));
+
+			Connection.Response res = Jsoup.connect(url.toString()).timeout(30000).execute();
             
-            if (response.getStatusLine().getStatusCode() == 200) {
-		        BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-		        
-		        String line;
-		        StringBuilder builder = new StringBuilder();
-		        while ((line = reader.readLine()) != null) {
-		        	builder.append(line);
-		        }
-		        
-				JSONObject browseData = new JSONObject(builder.toString());
+            if (res.statusCode() == 200) {
+				JSONObject browseData = new JSONObject(res.body());
 				JSONArray products = browseData.getJSONArray("products");
-				JSONObject genres = browseData.getJSONObject("genres");
+				if (browseData.has("cursor")) {
+					nextCursor = browseData.getString("cursor");
+				}
 				
 				for (int i = 0; i < products.length(); i++)
 				{
@@ -54,17 +46,16 @@ public class BrowseJsonScraper {
 					newGame.setGameName(productInfo.getString(0));
 					newGame.setGameAlias(getGameAlias(newGame.getGameName()));
 					newGame.setConsoleAlias(consoleAlias);
-					newGame.setGenre(genres.getString(productInfo.getString(1)));
 					try {
-						newGame.setUsedPrice((float)productInfo.getDouble(2));
+						newGame.setUsedPrice((float)productInfo.getDouble(1) / 100.0f);
 					} catch (JSONException e) {
-						Log.e(TAG, "Error parsing used price (" + productInfo.getString(2) + ") for " + newGame.getGameName() + ".");
+						Log.e(TAG, "Error parsing used price (" + productInfo.getString(1) + ") for " + newGame.getGameName() + ".");
 						newGame.setUsedPrice(0.0f);
 					}
 					try {
-						newGame.setNewPrice((float)productInfo.getDouble(5));
+						newGame.setNewPrice((float)productInfo.getDouble(3) / 100.0f);
 					} catch (JSONException e) {
-						Log.e(TAG, "Error parsing new price (" + productInfo.getString(5) + ") for " + newGame.getGameName() + ".");
+						Log.e(TAG, "Error parsing new price (" + productInfo.getString(3) + ") for " + newGame.getGameName() + ".");
 						newGame.setNewPrice(0.0f);
 					}
 					
@@ -74,13 +65,11 @@ public class BrowseJsonScraper {
 		} catch (Exception e) { 
 			Log.e(TAG, e.getMessage());
 		}
-				
-		return gameList;
-	}
-	
-	public static int getNumPages(String consoleAlias) {
-		// i dunno lol
-		return BrowseScraper.getNumPages(consoleAlias);
+
+		GameList result = new GameList();
+		result.setCursor(nextCursor);
+		result.setProducts(gameList);
+		return result;
 	}
 	
 	private static String getGameAlias(String gameName) {

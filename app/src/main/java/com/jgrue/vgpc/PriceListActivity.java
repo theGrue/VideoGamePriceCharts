@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.endless.EndlessAdapter;
 import com.jgrue.vgpc.data.Game;
+import com.jgrue.vgpc.data.GameList;
 import com.jgrue.vgpc.scrapers.BrowseJsonScraper;
-import com.jgrue.vgpc.scrapers.BrowseScraper;
 import com.jgrue.vgpc.scrapers.SearchScraper;
 
 import java.text.DecimalFormat;
@@ -35,8 +35,7 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 	private String browseAlias;
 	private String browseName;
 	private String browseType;
-	private int numPages = -1;
-	private int nextPage = 0;
+	private String nextCursor;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -114,7 +113,7 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 				if(consoleGenre != null && searchMode)
 					consoleGenre.setText(game.getConsoleName());
 				else if(consoleGenre != null && browseMode)
-					consoleGenre.setText(game.getGenre());
+					consoleGenre.setText(browseName);
 				
 				TextView usedPrice = (TextView)convertView.findViewById(R.id.used_price);
 				if(usedPrice != null)
@@ -137,10 +136,9 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 				gameListToLoad = SearchScraper.getSearchResults(searchQuery);
 			else if(browseMode)
 			{
-				if(numPages == -1)
-					numPages = BrowseScraper.getNumPages(browseAlias);
-				gameListToLoad = BrowseJsonScraper.getBrowseResults(browseAlias, browseType, nextPage);
-				nextPage++;
+				GameList result = BrowseJsonScraper.getBrowseResults(browseAlias, browseType, nextCursor);
+				gameListToLoad = result.getProducts();
+				nextCursor = result.getCursor();
 			}	
 			
 			if(searchMode && gameListToLoad.size() == 1) {
@@ -155,7 +153,7 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 				finish();
 			}
 			
-			return !searchMode && (browseMode && nextPage < numPages);
+			return !searchMode && (browseMode && nextCursor != null);
 		}
 
 		@Override
@@ -164,7 +162,7 @@ public class PriceListActivity extends ActionBarListActivity implements ActionBa
 				@SuppressWarnings("unchecked")
 				ArrayAdapter<Game> wrappedAdapter = (ArrayAdapter<Game>)getWrappedAdapter();
 				
-				for (int i = 0; i < gameListToLoad.size(); i++) { 
+				for (int i = 0; i < gameListToLoad.size(); i++) {
 					wrappedAdapter.add(gameListToLoad.get(i));
 				}
 			} else if(searchMode) {

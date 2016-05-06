@@ -15,16 +15,12 @@
     <string name="used_prices_header">Used Prices</string>
     <string name="view_graph_label"><u>View Price History Chart</u></string>
     <string-array name="sort_by">
+        <item>Popularity</item>
     	<item>Alphabetical</item>
-    	<item>Most Popular</item>
-    	<item>Loose Price</item>
-    	<item>New Price</item>
     </string-array>
     <string-array name="sort_by_type">
+        <item></item>
     	<item>name</item>
-    	<item>popular</item>
-    	<item>highest-price</item>
-    	<item>new-highest-price</item>
     </string-array>
     <string name="price_chart_activity_label">Price History Chart</string>
     <string name="full_game_activity_label">New &amp; Used Price Comparison</string>
