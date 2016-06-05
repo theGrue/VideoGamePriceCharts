@@ -17,10 +17,14 @@
     <string-array name="sort_by">
         <item>Popularity</item>
     	<item>Alphabetical</item>
+        <item>Price: high to low</item>
+        <item>Price: low to high</item>
     </string-array>
     <string-array name="sort_by_type">
         <item></item>
     	<item>name</item>
+        <item>highest-price</item>
+        <item>lowest-price</item>
     </string-array>
     <string name="price_chart_activity_label">Price History Chart</string>
     <string name="full_game_activity_label">New &amp; Used Price Comparison</string>
