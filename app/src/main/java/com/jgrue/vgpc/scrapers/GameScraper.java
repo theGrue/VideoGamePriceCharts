@@ -61,19 +61,19 @@ public class GameScraper {
 				//game.setLastObservation(document.select("div#price_data div.prices_now p").get(0).html().substring(18).split("<")[0]);
 				game.setImageUrl(document.select("#product_details .cover img").get(0).attr("src"));
 				try {
-					game.setUsedVolume(document.select("#volume_link_used").get(0).text());
+					game.setUsedVolume(document.select("[data-show-tab=completed-auctions-used] > a").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing used volume for " + game.getGameName() + ".");
 					game.setUsedVolume("unknown");
 				}
 				try {
-					game.setCompleteVolume(document.select("#volume_link_cib").get(0).text());
+					game.setCompleteVolume(document.select("[data-show-tab=completed-auctions-cib] > a").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing complete volume for " + game.getGameName() + ".");
 					game.setCompleteVolume("unknown");
 				}
 				try {
-					game.setNewVolume(document.select("#volume_link_new").get(0).text());
+					game.setNewVolume(document.select("[data-show-tab=completed-auctions-new] > a").get(0).text());
 				} catch (IndexOutOfBoundsException e) {
 					Log.e(TAG, "Error parsing new volume for " + game.getGameName() + ".");
 					game.setNewVolume("unknown");
