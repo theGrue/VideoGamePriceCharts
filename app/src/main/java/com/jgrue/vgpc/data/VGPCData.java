@@ -9,7 +9,7 @@ import static android.provider.BaseColumns._ID;
 
 public class VGPCData extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "vgpc.db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 	
 	/** Create a helper object for the Events database */
 	public VGPCData(Context ctx) {
@@ -90,6 +90,9 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Wii U"); ih.bind(aliasColumn, "wii-u"); ih.bind(categoryColumn, 1);
+
+        ih.execute(); ih.prepareForInsert();
+        ih.bind(nameColumn, "Switch"); ih.bind(aliasColumn, "nintendo-switch"); ih.bind(categoryColumn, 1);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Gameboy"); ih.bind(aliasColumn, "gameboy"); ih.bind(categoryColumn, 1);
@@ -175,13 +178,13 @@ public class VGPCData extends SQLiteOpenHelper {
 
         // Insert Other consoles.
         ih.prepareForInsert();
+        ih.bind(nameColumn, "amiibo Figures"); ih.bind(aliasColumn, "amiibo"); ih.bind(categoryColumn, 5);
+
+        ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Skylanders Figures"); ih.bind(aliasColumn, "skylanders"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Infinity Figures"); ih.bind(aliasColumn, "disney-infinity"); ih.bind(categoryColumn, 5);
-
-        ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "amiibo Figures"); ih.bind(aliasColumn, "amiibo"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "3DO"); ih.bind(aliasColumn, "3do"); ih.bind(categoryColumn, 5);
@@ -197,9 +200,6 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Intellivision"); ih.bind(aliasColumn, "intellivision"); ih.bind(categoryColumn, 5);
-        
-        ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "Mac"); ih.bind(aliasColumn, "macintosh"); ih.bind(categoryColumn, 5);
 
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "N-Gage"); ih.bind(aliasColumn, "n-gage"); ih.bind(categoryColumn, 5);
@@ -212,9 +212,6 @@ public class VGPCData extends SQLiteOpenHelper {
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "Odyssey 2"); ih.bind(aliasColumn, "odyssey-2"); ih.bind(categoryColumn, 5);
-        
-        ih.execute(); ih.prepareForInsert();
-        ih.bind(nameColumn, "PC"); ih.bind(aliasColumn, "pc-games"); ih.bind(categoryColumn, 5);
         
         ih.execute(); ih.prepareForInsert();
         ih.bind(nameColumn, "TurboGrafx-16"); ih.bind(aliasColumn, "turbografx-16"); ih.bind(categoryColumn, 5);
