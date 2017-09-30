@@ -167,8 +167,8 @@ public class GameScraper {
 			Log.i(TAG, "Target URL: " + url.toString());
 			Document document = Jsoup.parse(url, 30000);
 			Log.i(TAG, "Retrieved URL: " + document.baseUri());
-			
-			String javaScript = document.select("div.container div.content div.mid_col script").first().html();
+
+			String javaScript = document.select(".container > #content > .mid_col > script").first().html();
 			Matcher matcher = Pattern.compile("VGPC\\.chart_data = \\{.*\\}").matcher(javaScript);
 			
 			if(matcher.find()) {

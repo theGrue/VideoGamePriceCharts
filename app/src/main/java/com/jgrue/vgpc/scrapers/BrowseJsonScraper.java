@@ -6,7 +6,6 @@ import com.jgrue.vgpc.data.Game;
 import com.jgrue.vgpc.data.GameList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -40,23 +39,27 @@ public class BrowseJsonScraper {
 				
 				for (int i = 0; i < products.length(); i++)
 				{
-					JSONArray productInfo = products.getJSONArray(i);
+					JSONObject productInfo = products.getJSONObject(i);
 					
 					Game newGame = new Game();
-					newGame.setGameName(productInfo.getString(0));
-					newGame.setGameAlias(getGameAlias(newGame.getGameName()));
+					newGame.setGameName(productInfo.getString("productName"));
+					newGame.setGameAlias(productInfo.getString("productUri"));
 					newGame.setConsoleAlias(consoleAlias);
 					try {
-						newGame.setUsedPrice((float)productInfo.getDouble(1) / 100.0f);
-					} catch (JSONException e) {
-						Log.e(TAG, "Error parsing used price (" + productInfo.getString(1) + ") for " + newGame.getGameName() + ".");
+						newGame.setUsedPrice(Float.parseFloat(productInfo.getString("price1").substring(1).replace(",", "")));
+					} catch (NumberFormatException e) {
+						Log.e(TAG, "Error parsing used price (" + productInfo.getString("price1").substring(1) + ") for " + newGame.getGameName() + ".");
 						newGame.setUsedPrice(0.0f);
+					} catch (IndexOutOfBoundsException e) {
+						Log.e(TAG, "Used price was not found.");
 					}
 					try {
-						newGame.setNewPrice((float)productInfo.getDouble(3) / 100.0f);
-					} catch (JSONException e) {
-						Log.e(TAG, "Error parsing new price (" + productInfo.getString(3) + ") for " + newGame.getGameName() + ".");
+						newGame.setNewPrice(Float.parseFloat(productInfo.getString("price2").substring(1).replace(",", "")));
+					} catch (NumberFormatException e) {
+						Log.e(TAG, "Error parsing new price (" + productInfo.getString("price2").substring(1) + ") for " + newGame.getGameName() + ".");
 						newGame.setNewPrice(0.0f);
+					} catch (IndexOutOfBoundsException e) {
+						Log.e(TAG, "New price was not found.");
 					}
 					
 					gameList.add(newGame);
